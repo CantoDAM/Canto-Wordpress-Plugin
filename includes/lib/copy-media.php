@@ -59,7 +59,7 @@ $attachment = $_POST['fbc_id'];
 $id         = $send_id;
 
 //Go get the media item from Flight
-$flight['api_url']  = 'https://' . $_POST['fbc_flight_domain'] . '.canto.com/api/v1/';
+$flight['api_url']  = 'https://' . $_POST['fbc_flight_domain'] . '.'. $_POST['fbc_app_api'] .'/api/v1/';
 $flight['req']      = $flight['api_url'] . $_POST['fbc_scheme'] . '/' . $_POST['fbc_id'];
 
 

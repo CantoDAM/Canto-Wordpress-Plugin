@@ -2,6 +2,12 @@
 define('WP_ADMIN', FALSE);
 define('WP_LOAD_IMPORTERS', FALSE);
 
+if ( ! function_exists( 'et_core_portability_register' ) ) {
+	function et_core_portability_register( $context, $args ) {
+		return true;
+	}
+}
+
 require_once(urldecode($_GET["abspath"]).'wp-admin/admin.php');
 if(!function_exists('wp_handle_upload')) {
   require_once( $_POST["abspath"] . 'wp-admin/includes/image.php' );

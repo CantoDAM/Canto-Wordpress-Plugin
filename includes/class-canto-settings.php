@@ -246,9 +246,12 @@ class Canto_Settings {
 		/*
 		 * Canto oAuth Config and connection
 		 */
+		$api_domains = array('canto.com' => 'e3a2d379335d48e7afef348dda917fd9',
+												'canto.global' => '0fac4b924b404106a6de4a6e53dc0de2',
+												'cantoflight.com' => '2883b274ab9740d8bfb96366a0adead2');
 		$oAuth = "https://oauth.canto.com:8443/oauth/api/oauth2/authorize?response_type=code";
 		$appID = "e3a2d379335d48e7afef348dda917fd9";
-		$callback = urlencode("https://wordpress.canto.com/callback.php");
+		$callback = urlencode("https://wordpress.canto.com/callback.php?app_api=canto.com");
 		$scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
 		$state = urlencode($scheme.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 		$oAuthURL = $oAuth.'&app_id='.$appID.'&redirect_uri='.$callback.'&state='.$state;
@@ -256,12 +259,15 @@ class Canto_Settings {
 		$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
 		$html .= '<div id="fbc_settings_form">' . "\n";
 
-
 		if ( get_option( 'fbc_flight_domain' ) == '' && get_option( 'fbc_app_token' ) == '') :
 
 			$html .= "<i class='icon-icn_close_circle_x_01'></i>";
 			$html .= '<strong>Status:</strong> You are not connected to Canto<br><br>';
-			$html .= '<a class="button-primary" href="'.$oAuthURL.'">Login to Canto</a>';
+			$html .= 'Select Your API endpoint: <select name="app_api" id="app_api">' . "\n";
+			foreach($api_domains as $k => $v)
+				$html .= '<option value="'.$k.'" data-appid="'.$v.'">company.'.$k.'</option>';
+			$html .= '</select><br><br>';
+			$html .= '<a class="button-primary" id="oAuthURL" href="'.$oAuthURL.'">Login to Canto</a>';
 
 		elseif ( get_option( 'fbc_flight_domain' ) != '' && get_option( 'fbc_app_token' ) != '') :
 
@@ -275,8 +281,10 @@ class Canto_Settings {
 
 			} else {
 
+					$app_api = (get_option('fbc_app_api')) ? get_option('fbc_app_api') : 'canto.com';
+
 					$html .= "<i class='icon-icn_checkmark_circle_01'></i>";
-					$html .= '<strong>Status:</strong> You are connected to Canto -  <strong>'.get_option('fbc_flight_domain').'.canto.com</strong><br><br>';
+					$html .= '<strong>Status:</strong> You are connected to Canto -  <strong>'.get_option('fbc_flight_domain').'.'.$app_api.'</strong><br><br>';
 					$html .= '<em>Last login: <strong>' . date("F d Y, g:i A", get_option( 'fbc_app_timestamp' ) ) . '</strong></em><br>';
 					$html .= '<em>For security purposes you will need to login again after <strong>' . date("F d Y, g:i a", get_option( 'fbc_app_expire_token' ) ) . '</strong> </em><br><br>';
 					$html .= '<a class="button-primary" href="'.$scheme.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'&disconnect">Disconnect</a>';
@@ -359,6 +367,7 @@ class Canto_Settings {
 
 			delete_option('fbc_flight_domain');
 			delete_option('fbc_app_id');
+			delete_option('fbc_app_api');
 			delete_option('fbc_app_secret');
 			delete_option('fbc_app_token');
 			delete_option('fbc_app_refresh_token');
@@ -387,6 +396,9 @@ class Canto_Settings {
 			update_option( 'fbc_app_refresh_token', $_REQUEST['refreshToken'] );
 			update_option( 'fbc_app_expire_token', time() + $_REQUEST['expiresIn'] );
 
+			$app_api = isset($_REQUEST['app_api']) ? $_REQUEST['app_api'] : 'canto.com';
+			update_option( 'fbc_app_api', $app_api );
+
 
 			$arr = explode("&token=",$_SERVER['REQUEST_URI']);
 			$rURI = $arr[0];
@@ -400,6 +412,15 @@ class Canto_Settings {
 
 		?>
 				<script type="text/javascript">
+					jQuery('#app_api').change(function(e){
+						var app_api = jQuery(this).val();
+						var app_id = jQuery(this).find(':selected').data('appid');
+						var oAuthURL = jQuery('#oAuthURL').attr('href');
+						var endpoint = oAuthURL.replace(/https\:\/\/(.+?):8443/,'https://oauth.'+app_api+':8443');
+						endpoint = endpoint.replace(/app_api\%3D(.+?)&/,'app_api%3D'+app_api+'&');
+						endpoint = endpoint.replace(/app_id=(.+?)&/,'app_id='+app_id+'&');
+						jQuery('#oAuthURL').attr('href',endpoint);
+					});
 					jQuery('#updateOptions').click(function (e) {
 						e.preventDefault();
 						var data = {

@@ -284,7 +284,7 @@ class Canto {
 
 
 				//Go get the media item from Flight
-				$flight['api_url']  = 'https://' . get_option('fbc_flight_domain') . '.canto.com/api/v1/';
+				$flight['api_url']  = 'https://' . get_option('fbc_flight_domain') . '.' . get_option('fbc_app_api') . '/api/v1/';
 				$flight['req']      = $flight['api_url'] . $scheme . '/' . $fbc_id;
 
 				$response = $this->curl_action( $flight['req'], 0 );

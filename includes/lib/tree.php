@@ -1,5 +1,5 @@
 <?php
-$url = 'https://'. $_REQUEST['subdomain'] .'.canto.com/api/v1/tree?sortBy=name&sortDirection=ascending';
+$url = 'https://'. $_REQUEST['subdomain'] .'.'. $_REQUEST['app_api'] .'/api/v1/tree?sortBy=name&sortDirection=ascending';
 
 $header = array( 'Authorization: Bearer '. $_REQUEST['token']);
 

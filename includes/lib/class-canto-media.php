@@ -87,9 +87,12 @@ class canto_media {
 
 			//echo esc_attr( $form_action_url );
 
+			$app_api = (get_option('fbc_app_api')) ? get_option('fbc_app_api') : 'canto.com';
+
 			$translation_array = array(
 				'FBC_URL' 	=> FBC_URL,
 				'FBC_PATH' 	=> FBC_PATH,
+				'app_api'		=> $app_api,
 				'subdomain' => get_option( 'fbc_flight_domain' ),
 				'token'		=> get_option( 'fbc_app_token' ),
 				'action'	=> esc_attr( $form_action_url ),

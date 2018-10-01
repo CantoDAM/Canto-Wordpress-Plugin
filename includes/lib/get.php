@@ -1,11 +1,11 @@
 <?php
 if(isset($_REQUEST['album']) && $_REQUEST['album'] != null)
-    $url = 'https://'. $_REQUEST['subdomain'] .'.canto.com/api/v1/album/'. $_REQUEST['album'] .'?limit='. $_REQUEST['limit'] .'&start='. $_REQUEST['start'];
+    $url = 'https://'. $_REQUEST['subdomain'] .'.'. $_REQUEST['app_api'] .'/api/v1/album/'. $_REQUEST['album'] .'?limit='. $_REQUEST['limit'] .'&start='. $_REQUEST['start'];
 else
-    $url = 'https://'. $_REQUEST['subdomain'] .'.canto.com/api/v1/image?limit='. $_REQUEST['limit'] .'&start='. $_REQUEST['start'];
+    $url = 'https://'. $_REQUEST['subdomain'] .'.'. $_REQUEST['app_api'] .'/api/v1/image?limit='. $_REQUEST['limit'] .'&start='. $_REQUEST['start'];
 
 if(isset($_REQUEST['keyword']))
-    $url = 'https://'. $_REQUEST['subdomain'] .'.canto.com/api/v1/search?keyword='. urlencode($_REQUEST['keyword']) .'&operator=and&limit='. $_REQUEST['limit'] .'&start='. $_REQUEST['start'];
+    $url = 'https://'. $_REQUEST['subdomain'] .'.'. $_REQUEST['app_api'] .'/api/v1/search?keyword='. urlencode($_REQUEST['keyword']) .'&operator=and&limit='. $_REQUEST['limit'] .'&start='. $_REQUEST['start'];
 
 $header = array( 'Authorization: Bearer '. $_REQUEST['token']);
 
