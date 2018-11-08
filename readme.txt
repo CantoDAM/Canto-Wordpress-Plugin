@@ -3,7 +3,7 @@ Contributors: Canto Inc, ianthekid, flightjim
 Tags: digital asset management, brand management, cloud storage, DAM, file storage, image management, photo library, Canto
 Requires at least: 4.4
 Tested up to: 4.9.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,10 @@ We recommend you to connect to your Canto account using an administrator account
 
 == Changelog ==
 
+= 1.2.1 =
+* 2018-11-07
+* FIX: Edge browser compatibility for CSS and JS loading issues
+
 = 1.2.0 =
 * 2018-10-01
 * FIX: Added API domain selection for legacy and canto.global accounts
@@ -68,7 +72,6 @@ We recommend you to connect to your Canto account using an administrator account
 
 == Upgrade Notice ==
 
-= 1.2.0 =
-* 2018-10-01
-* FIX: Added API domain selection for legacy and canto.global accounts
-* FIX: Divi theme compatibility for custom image sizes
+= 1.2.1 =
+* 2018-11-07
+* FIX: Edge browser compatibility for CSS and JS loading issues

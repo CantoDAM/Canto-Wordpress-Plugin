@@ -576,12 +576,15 @@ class Canto {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function admin_enqueue_styles( $hook = '' ) {
-		wp_register_style( $this->_token . '-admin', esc_url( $this->assets_url ) . 'css/admin.css', array(),
-			$this->_version );
-		wp_enqueue_style( $this->_token . '-admin' );
+	 public function admin_enqueue_styles( $hook = '' ) {
+ 		wp_register_style( $this->_token . '-admin', esc_url( $this->assets_url ) . 'css/admin.css', array(),
+ 			$this->_version );
+ 		wp_register_style( $this->_token . '-appstyles', esc_url( FBC_URL ) . 'public/assets/app.styles.css', array(), $this->_version );
 
-		wp_enqueue_script( 'fbc_media_js', plugins_url() . '/canto/assets/js/admin.js' );
+ 		wp_enqueue_style( $this->_token . '-admin' );
+ 		wp_enqueue_style( $this->_token . '-appstyles' );
+
+ 		wp_enqueue_script( 'fbc_media_js', plugins_url() . '/canto/assets/js/admin.js' );
 
 		$translation_array = array(
 			'FBC_URL' 	=> FBC_URL,
