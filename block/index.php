@@ -37,7 +37,7 @@ function canto_register_block() {
 	$translation_array = array(
 		'FBC_URL' 	=> FBC_URL,
 		'FBC_PATH' 	=> FBC_PATH,
-		'FBC_SITE'	=> get_bloginfo('url')
+		'FBC_SITE'	=> get_bloginfo('wpurl')
 	);
 
 	wp_register_script(

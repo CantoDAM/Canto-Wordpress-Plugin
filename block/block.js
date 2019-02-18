@@ -1,11 +1,9 @@
 ( function( blocks, editor, i18n, element, components, data, _ ) {
 	var el = element.createElement;
 	var PostData = data.select("core/editor");
-  var MediaUpload = editor.MediaUpload;
   var Modal = components.Modal;
 
-	console.log(args.FBC_SITE);
-
+	//console.log(args.FBC_SITE);
 	//wp.media.frame.setState( 'canto' )
 	//const post_id = data.select("core/editor").getCurrentPostId();
 	//const post_id = data.select("core/editor").getPermalink();
@@ -60,22 +58,7 @@
 			return (
 				el( 'div', { className: props.className },
           el( 'div', { className: 'canto-image' },
-            el( MediaUpload, {
-              onSelect: onSelectImage,
-              //allowedTypes: ['image'],
-              value: attributes.mediaID,
-              render: function( obj ) {
-								//console.log(obj);
-                return el( components.Button, {
-                    className: attributes.mediaID ? 'image-button' : 'button button-large',
-                    onClick: obj.open
-                  },
-                  ! attributes.mediaID ? i18n.__( 'Upload Image', 'canto' ) : el( 'img', { src: attributes.mediaURL } )
-                );
-              }
-            } )
-          ),
-          el( components.Button, {
+					el( components.Button, {
             className: 'button button-large',
               onClick: openModal
             },
@@ -96,6 +79,7 @@
                 },
               ),
             ),
+          ),
 				)
 			);
 		},
