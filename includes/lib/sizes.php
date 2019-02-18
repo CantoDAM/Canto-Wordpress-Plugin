@@ -8,9 +8,11 @@ if ( ! function_exists( 'et_core_portability_register' ) ) {
 	}
 }
 
-require_once(urldecode($_GET["abspath"]).'wp-admin/admin.php');
+if(!function_exists('apply_filters')) {
+	require_once(urldecode($_GET["abspath"]).'wp-admin/admin.php');
+}
 if(!function_exists('wp_handle_upload')) {
-  require_once( $_POST["abspath"] . 'wp-admin/includes/image.php' );
+  require_once( $_GET["abspath"] . 'wp-admin/includes/image.php' );
 }
 
 $sizes = apply_filters( 'image_size_names_choose', array(

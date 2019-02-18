@@ -32,6 +32,9 @@ require_once( 'includes/lib/class-canto-admin-api.php' );
 require_once( 'includes/lib/class-canto-media.php' );
 require_once( 'includes/lib/class-canto-attachment.php' );
 
+//Gutenberg Block
+require_once( 'block/index.php' );
+
 /**
  * Returns the main instance of Canto to prevent the need to use globals.
  *
@@ -49,3 +52,33 @@ function Canto () {
 }
 
 Canto();
+
+
+
+/*
+function canto_enqueue_block_editor_assets() {
+	// Scripts.
+	wp_enqueue_script(
+		'canto-block',
+		FBC_URL . 'block/block.js',
+		array( 'wp-blocks', 'wp-i18n', 'wp-element' )
+	);
+
+	// Styles.
+	wp_enqueue_style(
+		'canto-block-editor',
+		FBC_URL . 'assets/css/editor.css',
+		array( 'wp-edit-blocks' )
+	);
+}
+add_action( 'init', 'canto_enqueue_block_editor_assets' );
+
+function canto_enqueue_block_assets() {
+	wp_enqueue_style(
+		'canto-frontend',
+		FBC_URL . 'assets/css/style.css',
+		array( 'wp-blocks' )
+	);
+}
+add_action( 'init', 'canto_enqueue_block_assets' );
+*/
