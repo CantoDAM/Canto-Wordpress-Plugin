@@ -1,6 +1,8 @@
 ( function( blocks, editor, i18n, element, components, data, _ ) {
 	var el = element.createElement;
 	var RichText = editor.RichText;
+	var InspectorControls = editor.InspectorControls;
+	var ToggleControl     = components.ToggleControl;
 	//var RichText = editor.RichText;
 	//const post_id = data.select("core/editor").getCurrentPostId();
 	//const permaLink = data.select("core/editor").getPermalink();
@@ -31,12 +33,17 @@
 			mediaAttachment: {
 				type: 'string',
 			},
+			altText: {
+				type: 'string',
+				default: '',
+			},
 		},
 		edit: function( props ) {
 
 			var attributes = props.attributes;
 			var PostData = data.select("core/editor");
 			var PostID = PostData.getCurrentPostId();
+			var imgSizes = Object.keys(args.imgSizes).reduce((arr, key)=>arr.concat(args.imgSizes[key]), []);
 
 			var onSelectImage = function( media ) {
 				return props.setAttributes( {
@@ -57,6 +64,19 @@
 				} );
       };
 
+			var onSelectImage = function( media ) {
+				return props.setAttributes( {
+					mediaURL: media.url,
+					mediaID: media.id,
+				} );
+			};
+
+			var setAltText = function( text ) {
+				return props.setAttributes( {
+					altText: text
+				} );
+			}
+
 			return (
 				el( 'div', { className: props.className },
           el( 'div', { className: 'canto-image' },
@@ -67,6 +87,26 @@
 	            },
 	            'Select Asset'
 	          ),
+
+						el(
+							InspectorControls,
+							{},
+							el(
+								components.SelectControl, {
+									label: i18n.__('Image Size'),
+									options: imgSizes,
+								}
+							),
+							el(
+								components.TextControl, {
+									label: i18n.__('Alt Text'),
+									value: attributes.altText,
+									onChange: setAltText,
+								}
+							),
+						),
+
+					/*
 					attributes.mediaID &&
 						el( RichText, {
 							tagName: 'div',
@@ -76,6 +116,24 @@
 								props.setAttributes( { title: value } );
 							},
 						} ),
+					*/
+
+					el( 'div', { className: 'recipe-image' },
+						el( editor.MediaUpload, {
+							onSelect: onSelectImage,
+							allowedTypes: 'image',
+							value: attributes.mediaID,
+							render: function( obj ) {
+								return el( components.Button, {
+										className: attributes.mediaID ? 'image-button' : 'button button-large',
+										onClick: obj.open
+									},
+									! attributes.mediaID ? i18n.__( 'Select Asset from Canto', 'canto' ) : el( 'img', { src: attributes.mediaURL } )
+								);
+							}
+						} )
+					),
+
           attributes.isOpen &&
             el( components.Modal, {
                 title: cantoLogo,

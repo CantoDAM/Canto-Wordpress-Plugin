@@ -2,7 +2,7 @@
 Contributors: Canto Inc, ianthekid, flightjim
 Tags: digital asset management, brand management, cloud storage, DAM, file storage, image management, photo library, Canto
 Requires at least: 5.0
-Tested up to: 5.0.3
+Tested up to: 5.1
 Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

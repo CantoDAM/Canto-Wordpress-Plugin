@@ -7,7 +7,7 @@
  * Author: Canto Inc
  * Author URI: https://www.canto.com/
  * Requires at least: 5.0
- * Tested up to: 5.0.3
+ * Tested up to: 5.1
  *
  * Text Domain: canto
  * Domain Path: /lang/
