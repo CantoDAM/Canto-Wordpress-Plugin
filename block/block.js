@@ -1,12 +1,9 @@
 ( function( blocks, editor, i18n, element, components, data, _ ) {
 	var el = element.createElement;
-	var PostData = data.select("core/editor");
-  var Modal = components.Modal;
-
-	//console.log(args.FBC_SITE);
-	//wp.media.frame.setState( 'canto' )
+	var RichText = editor.RichText;
+	//var RichText = editor.RichText;
 	//const post_id = data.select("core/editor").getCurrentPostId();
-	//const post_id = data.select("core/editor").getPermalink();
+	//const permaLink = data.select("core/editor").getPermalink();
 	//var post_id = editor.getCurrentPostId();
 
   const cantoLogo = el('svg', { width: 20, height: 20, viewBox: '0 0 168.4 168.4' },
@@ -31,9 +28,14 @@
 				selector: 'img',
 				attribute: 'src',
 			},
+			mediaAttachment: {
+				type: 'string',
+			},
 		},
 		edit: function( props ) {
+
 			var attributes = props.attributes;
+			var PostData = data.select("core/editor");
 			var PostID = PostData.getCurrentPostId();
 
 			var onSelectImage = function( media ) {
@@ -58,26 +60,34 @@
 			return (
 				el( 'div', { className: props.className },
           el( 'div', { className: 'canto-image' },
-					el( components.Button, {
-            className: 'button button-large',
-              onClick: openModal
-            },
-            'Select asset'
-          ),
+					!attributes.mediaID &&
+						el( components.Button, {
+	            className: 'button button-large mx-auto',
+	              onClick: openModal
+	            },
+	            'Select Asset'
+	          ),
+					attributes.mediaID &&
+						el( RichText, {
+							tagName: 'div',
+							inline: false,
+							value: props.attributes.mediaAttachment,
+							onChange: function( value ) {
+								props.setAttributes( { title: value } );
+							},
+						} ),
           attributes.isOpen &&
-            el( Modal, {
+            el( components.Modal, {
                 title: cantoLogo,
                 className: 'canto-modal',
                 onRequestClose: closeModal
               },
-              el( 'iframe',
-                {
-                  className: 'canto-iframe',
-                  src: `${args.FBC_SITE}/wp-admin/media-upload.php?chromeless=1&tab=canto&post_id=${PostID}`,
-                  height: '100%',
-                  width: '100%'
-                },
-              ),
+							el( components.FocusableIframe , {
+									src: `${args.FBC_URL}/block/canto.php?chromeless=1&tab=canto&post_id=${PostID}&FBC_URL=${args.FBC_URL}&args=${JSON.stringify(args)}&wpClientId=${JSON.stringify(props.clientId)}`,
+									className: 'canto-iframe',
+									iframeRef: 'cantoFrameRef'
+								}
+							),
             ),
           ),
 				)
@@ -88,9 +98,11 @@
 
 			return (
 				el( 'div', { className: props.className },
-					attributes.mediaURL &&
+					attributes.mediaID &&
 						el( 'div', { className: 'canto-image' },
-							el( 'img', { src: attributes.mediaURL } ),
+							el( RichText.Content, {
+									tagName: 'div', value: attributes.mediaAttachment
+							} ),
 						),
 				)
 			);

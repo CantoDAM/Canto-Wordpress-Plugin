@@ -40,6 +40,34 @@ function canto_register_block() {
 		'FBC_SITE'	=> get_bloginfo('wpurl')
 	);
 
+	$app_api = (get_option('fbc_app_api')) ? get_option('fbc_app_api') : 'canto.com';
+
+	$translation_array = array(
+		'FBC_URL' 	=> FBC_URL,
+		'FBC_PATH' 	=> FBC_PATH,
+		'FBC_SITE'	=> get_bloginfo('wpurl'),
+		'app_api'		=> $app_api,
+		'subdomain' => get_option( 'fbc_flight_domain' ),
+		'token'		=> get_option( 'fbc_app_token' ),
+		//'action'	=> esc_attr( $form_action_url ),
+		//'abspath'	=> urlencode(ABSPATH),
+		'abspath'	=> ABSPATH,
+		//'postID'	=> $post_id,
+		'postID'	=> 5,
+		'limit'		=> 30,
+		'start'		=> 0
+	);
+
+	wp_register_script( 'fbc-react-vendor', FBC_URL.'public/assets/app.vendor.bundle.js', array( 'canto-block' ), null, true);
+	wp_register_script( 'fbc-react-bundle', FBC_URL.'public/assets/app.bundle.js', array( 'canto-block' ), null, true);
+
+	wp_localize_script( 'fbc-react-vendor', 'args', $translation_array );
+	wp_localize_script( 'fbc-react-bundle', 'args', $translation_array );
+
+	wp_register_style( 'fbc-styles', FBC_URL .'public/assets/app.styles.css', array() );
+
+
+
 	wp_register_script(
 		'canto',
 		plugins_url( 'block.js', __FILE__ ),
@@ -69,17 +97,16 @@ add_action( 'init', 'canto_register_block' );
 
 function canto_enqueue_block_editor_assets() {
 	// Scripts.
-	wp_enqueue_script(
-		'canto-block',
-		FBC_URL . 'block/block.js',
-		array( 'wp-blocks', 'wp-i18n', 'wp-element' )
-	);
+	wp_enqueue_script( 'canto-block', FBC_URL . 'block/block.js', array( 'wp-blocks', 'wp-i18n', 'wp-element' ) );
+	wp_enqueue_script ( 'fbc-react-vendor', FBC_URL.'public/assets/app.vendor.bundle.js', array( 'canto-block' ), null );
+	wp_enqueue_script ( 'fbc-react-bundle', FBC_URL.'public/assets/app.bundle.js', array( 'canto-block' ), null );
 
 	// Styles.
-	wp_enqueue_style(
-		'canto-block-editor',
-		FBC_URL . 'assets/css/editor.css',
-		array( 'wp-edit-blocks' )
-	);
+	wp_enqueue_style( 'canto-block-editor', FBC_URL . 'assets/css/editor.css', array( 'wp-edit-blocks' ) );
+
+	wp_enqueue_style( 'fbc-styles' );
+
+
+
 }
 add_action( 'init', 'canto_enqueue_block_editor_assets' );

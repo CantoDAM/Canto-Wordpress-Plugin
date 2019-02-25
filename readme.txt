@@ -1,9 +1,9 @@
 === Canto ===
 Contributors: Canto Inc, ianthekid, flightjim
 Tags: digital asset management, brand management, cloud storage, DAM, file storage, image management, photo library, Canto
-Requires at least: 4.4
-Tested up to: 4.9.6
-Stable tag: 1.2.1
+Requires at least: 5.0
+Tested up to: 5.0.3
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,10 @@ We recommend you to connect to your Canto account using an administrator account
 
 == Changelog ==
 
+= 1.3.0 =
+* 2019-02-28
+* NEW: Gutenberg block compatibility
+
 = 1.2.1 =
 * 2018-11-07
 * FIX: Edge browser compatibility for CSS and JS loading issues
@@ -72,6 +76,6 @@ We recommend you to connect to your Canto account using an administrator account
 
 == Upgrade Notice ==
 
-= 1.2.1 =
-* 2018-11-07
-* FIX: Edge browser compatibility for CSS and JS loading issues
+= 1.3.0 =
+* 2019-02-28
+* NEW: Gutenberg block compatibility

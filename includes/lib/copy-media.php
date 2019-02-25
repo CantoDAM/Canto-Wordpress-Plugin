@@ -52,6 +52,8 @@ if ( isset( $_POST['post_id'] ) ) {
 }
 
 
+
+
 //if ( isset( $send_id ) ) {
 global $post;
 
@@ -69,6 +71,8 @@ $response = ( json_decode( $response ) );
 
 
 
+
+
 //Get the download url
 $detail = $response->url->download;
 $detail = curl_action( $detail, 1 );
@@ -81,10 +85,9 @@ $detail = curl_action( $detail, 1 );
 
 
 	$matches = array();
-	preg_match( '/(Location:|URI:)(.*?)[\n\r]/', $detail, $matches );
-	$uri = str_replace( array("Location: "), "", $matches[0] );
+	preg_match( '/(Location:|URI:)(.*?)[\n\r]/i', $detail, $matches );
+	$uri = str_replace( array("Location: ", "location: "), "", $matches[0] );
 	$location = trim( $uri );
-
 
 
 $tmp        = download_url( $location );
@@ -111,7 +114,6 @@ if (! empty($_POST['title'])) {
 } else {
 	$post_data['post_title'] = basename($file_array['name']);
 }
-
 
 
 
@@ -202,6 +204,7 @@ if($posts && get_option('fbc_duplicates') === "true") {
 
 	$attachment_url = wp_get_attachment_url( $id );
 
+
 	// Additional parameters
 	//$caption = $title = $align = $rel = $size = $alt = '';
 	//$rel     = false;
@@ -254,7 +257,7 @@ if($posts && get_option('fbc_duplicates') === "true") {
 
 	$attachment_id = $id;
 
-	$results = array("attachment" => $html, "attachment_id" => $attachment_id);
+	$results = array("attachment" => $html, "attachment_id" => $attachment_id, "attachment_url" => $attachment_url);
 
 
 	if ( isset( $_POST['chromeless'] ) && $_POST['chromeless'] ) {

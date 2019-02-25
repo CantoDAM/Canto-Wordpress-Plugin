@@ -1,13 +1,13 @@
 <?php
 /*
  * Plugin Name: Canto
- * Version: 1.2.1
+ * Version: 1.3.0
  * Plugin URI: https://www.canto.com/integrations/wordpress/
  * Description: Easily find and publish your brand and creative assets directly to wordpress without having to search through emails or folders, using digital asset management by Canto.
  * Author: Canto Inc
  * Author URI: https://www.canto.com/
- * Requires at least: 4.4
- * Tested up to: 4.9.6
+ * Requires at least: 5.0
+ * Tested up to: 5.0.3
  *
  * Text Domain: canto
  * Domain Path: /lang/
