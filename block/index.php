@@ -35,21 +35,6 @@ function canto_register_block() {
 	}
 
 
-	/*
-	 * Image sizes
-	 */
-	$thesizes = get_image_sizes();
-	$sizeOpts = [];
-
-	if(!in_array('full',$thesizes))
-	  $thesizes['full'] = array();
-
-	foreach($thesizes as $k => $v){
-	  $dimensions = (isset($v['width'])) ? ' - '.$v['width'].' x '.$v['height'] : '';
-		array_push($sizeOpts, ['value' => $k, 'label' => $k.$dimensions] );
-	}
-
-
 	$translation_array = array(
 		'FBC_URL' 	=> FBC_URL,
 		'FBC_PATH' 	=> FBC_PATH,
@@ -65,7 +50,6 @@ function canto_register_block() {
 		'app_api'		=> $app_api,
 		'subdomain' => get_option( 'fbc_flight_domain' ),
 		'token'		=> get_option( 'fbc_app_token' ),
-		'imgSizes' => $sizeOpts,
 		//'action'	=> esc_attr( $form_action_url ),
 		//'abspath'	=> urlencode(ABSPATH),
 		'abspath'	=> ABSPATH,
@@ -120,10 +104,6 @@ function canto_enqueue_block_editor_assets() {
 
 	// Styles.
 	wp_enqueue_style( 'canto-block-editor', FBC_URL . 'assets/css/editor.css', array( 'wp-edit-blocks' ) );
-
 	wp_enqueue_style( 'fbc-styles' );
-
-
-
 }
 add_action( 'init', 'canto_enqueue_block_editor_assets' );
