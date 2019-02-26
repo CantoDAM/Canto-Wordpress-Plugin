@@ -3,10 +3,6 @@
   height: 100%;
   max-height: calc(100% - 25px - 25px);
 }
-.canto-image {
-  clear: both;
-  float: none;
-}
 .canto-iframe {
   position: absolute;
   top: 55px;
