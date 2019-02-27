@@ -40,13 +40,14 @@ function canto_register_block() {
 		'FBC_SITE'	=> get_bloginfo('wpurl'),
 		'app_api'		=> $app_api,
 		'subdomain' => get_option( 'fbc_flight_domain' ),
-		'token'		=> get_option( 'fbc_app_token' ),
+		'token'			=> get_option( 'fbc_app_token' ),
 		'expire_token' => get_option( 'fbc_app_expire_token' ),
+		'wp_version' => get_bloginfo( 'version' ),
+		'wp_editor' => 'gutenberg',
 		//'action'	=> esc_attr( $form_action_url ),
 		//'abspath'	=> urlencode(ABSPATH),
 		'abspath'	=> ABSPATH,
 		//'postID'	=> $post_id,
-		'postID'	=> 5,
 		'limit'		=> 30,
 		'start'		=> 0
 	);
