@@ -5,6 +5,9 @@
     border: 1px solid #ccc;
     background-color: #fcfcfc;
 }
+#fbc_settings_form .checkbox {
+    margin-left: 20px;
+}
 #getToken {
     max-width: 112px;
     text-align: center;
