@@ -54,8 +54,8 @@ We recommend you to connect to your Canto account using an administrator account
 == Changelog ==
 
 = 1.3.0 =
-* 2019-02-28
-* NEW: Gutenberg block compatibility
+* 2019-03-06
+* NEW: Gutenberg block compatibility. Canto block created to import assets into Gutenberg with native block types based on file type
 
 = 1.2.1 =
 * 2018-11-07
@@ -77,5 +77,5 @@ We recommend you to connect to your Canto account using an administrator account
 == Upgrade Notice ==
 
 = 1.3.0 =
-* 2019-02-28
-* NEW: Gutenberg block compatibility
+* 2019-03-06
+* NEW: Gutenberg block compatibility. Canto block created to import assets into Gutenberg with native block types based on file type
